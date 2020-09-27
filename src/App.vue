@@ -35,6 +35,10 @@
             />
           </clipPath>
         </defs>
+        <Friend />
+        <Score />
+
+        <component :is="character"></component>
 
         <text
           x="1000"
@@ -42,7 +46,7 @@
           style="font: normal 45px 'Recursive; text-transform: uppercase;"
           class="text"
         >
-          Character Name
+          {{ character }}
         </text>
 
         <path fill="#f0959f" d="M0 842h657v192H0z" />
@@ -78,12 +82,24 @@
 </template>
 
 <script>
+import Artist from "./components/Artist";
+import Friend from "./components/Friend";
+import Baker from "./components/Baker";
+import Mechanic from "./components/Mechanic";
+import Score from "./components/Score";
+import Zombie from "./components/Zombie";
 import { mapState } from "vuex";
 import GamestateStart from "./components/GamestateStart";
 
 export default {
   components: {
     GamestateStart,
+    Artist,
+    Friend,
+    Baker,
+    Mechanic,
+    Score,
+    Zombie,
   },
   data() {
     return {

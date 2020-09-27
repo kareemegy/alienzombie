@@ -1,4 +1,4 @@
-# alienzombie
+# Alienzombie
 
 ## Project setup
 ```
