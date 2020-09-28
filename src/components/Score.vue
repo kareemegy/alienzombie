@@ -77,7 +77,7 @@ export default {
       gsap.to("#needle", {
         duration: 0.3,
         rotation:newValue,
-        transformOrigin:"50% 80%"
+        transformOrigin:"50% 87%"
       });
     },
   },

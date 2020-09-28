@@ -1,5 +1,6 @@
 <template>
   <div id="app" class="contain">
+    
     <GamestateStart v-if="uiState == 'start'">
       <h2>Which human do you want to be?</h2>
       <p v-for="option in characterChoices" :key="option">
@@ -13,7 +14,8 @@
       </p>
       <button @click="pickCharacter">Pick your Character!</button>
     </GamestateStart>
-    <section v-else>
+
+    <section v-if="uiState == 'characterChosen'">
       <svg viewBox="0 -180 1628 1180" class="main">
         <defs>
           <clipPath id="bottom-clip">
@@ -81,13 +83,18 @@
         <h3>{{ questions[questionIndex].question }}</h3>
       </div>
       <div class="zombietalk">
-        <p v-for="character in characterChoices" :key="character">
+        <p v-for="character in shuffle(characterChoices)" :key="character">
           <button @click="pickQuestion(character)">
             {{ questions[questionIndex][character] }}
           </button>
         </p>
       </div>
     </section>
+
+    <GamestateFinishd
+      v-if="uiState == 'lost' || uiState == 'won'"
+    ></GamestateFinishd>
+
   </div>
 </template>
 
@@ -100,6 +107,7 @@ import Score from "./components/Score";
 import Zombie from "./components/Zombie";
 import { mapState } from "vuex";
 import GamestateStart from "./components/GamestateStart";
+import GamestateFinishd from "./components/GamestateFinishd";
 
 export default {
   components: {
@@ -110,6 +118,7 @@ export default {
     Mechanic,
     Score,
     Zombie,
+    GamestateFinishd,
   },
   data() {
     return {
@@ -133,6 +142,13 @@ export default {
     },
     pickQuestion(character) {
       this.$store.commit("pickQuestion", character);
+    },
+    shuffle(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      return array;
     },
   },
 };
