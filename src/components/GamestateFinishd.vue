@@ -12,7 +12,6 @@
       id="face"
     >
       <title id="face">Face Icon</title>
-      <defs></defs>
       <circle class="cls-1" cx="65.5" cy="65.5" r="64" />
       <circle class="cls-2" cx="95" cy="65.8" r="7.5" />
       <circle class="cls-2" cx="36" cy="65.8" r="7.5" />
@@ -36,14 +35,11 @@ export default {
   },
   methods: {
     restartTheGame() {
-      this.$store.commit("updateUiState", "start");
-      this.$store.commit("resetScore", 0);
-      this.$store.commit("resetQuestionIndex", 0);
+      this.$store.commit("resetGame");
     },
   },
   mounted() {
     if (this.$store.state.uiState == "lost") {
-
       gsap.to("#face", {
         duration: 1,
         rotation: "360",
@@ -60,6 +56,8 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
+  left: calc(50% - 200px) !important;
+  top: 145px !important;
 }
 button {
   margin-top: 30px;

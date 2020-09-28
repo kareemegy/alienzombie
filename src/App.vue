@@ -1,6 +1,5 @@
 <template>
   <div id="app" class="contain">
-    
     <GamestateStart v-if="uiState == 'start'">
       <h2>Which human do you want to be?</h2>
       <p v-for="option in characterChoices" :key="option">
@@ -84,7 +83,7 @@
       </div>
       <div class="zombietalk">
         <p v-for="character in shuffle(characterChoices)" :key="character">
-          <button @click="pickQuestion(character)">
+          <button @click="pickQuestion(character)" >
             {{ questions[questionIndex][character] }}
           </button>
         </p>
@@ -94,7 +93,6 @@
     <GamestateFinishd
       v-if="uiState == 'lost' || uiState == 'won'"
     ></GamestateFinishd>
-
   </div>
 </template>
 
@@ -137,8 +135,12 @@ export default {
   },
   methods: {
     pickCharacter() {
-      this.$store.commit("pickCharacter", this.characterInput);
-      this.$store.commit("updateUiState", "characterChosen");
+      if (this.characterInput) {
+        this.$store.commit("pickCharacter", this.characterInput);
+        this.$store.commit("updateUiState", "characterChosen");
+      } else {
+        return;
+      }
     },
     pickQuestion(character) {
       this.$store.commit("pickQuestion", character);
